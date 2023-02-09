@@ -42,3 +42,11 @@ def utc2format_time(utc_time, utc_format="%Y-%m-%dT%H:%M:%S.%fZ", hms: bool = Fa
     format_time = utc_time + datetime.timedelta(hours=8)
 
     return format_time.strftime(format_flag)
+
+def get_zero_timestamp():
+    """
+    return: 返回当前日期零点的时间戳
+    """
+    today = datetime.date.today()
+    zero_timestamp = int(time.mktime(today.timetuple()))
+    return zero_timestamp
