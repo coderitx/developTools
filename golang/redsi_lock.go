@@ -31,7 +31,6 @@ func (l *RedisLock) UnLock() {
 }
 
 func NewRedsiLock(pool *redis.Pool, name string) *RedisLock {
-
 	return &RedisLock{
 		Pool:     pool,
 		LockName: name,
