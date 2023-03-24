@@ -3,7 +3,6 @@ package tools
 
 import (
 	"time"
-
 	"github.com/gomodule/redigo/redis"
 )
 
