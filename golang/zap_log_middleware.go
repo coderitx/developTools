@@ -79,7 +79,7 @@ func RecoveryLog() gin.HandlerFunc {
 
 				log.Error("[Recovery from panic]",
 					zap.Any("[Error]", err),
-					zap.String("[Request}", string(httpRequest)),
+					zap.String("[Request]", string(httpRequest)),
 					zap.String("[Stack]", string(debug.Stack())),
 				)
 
