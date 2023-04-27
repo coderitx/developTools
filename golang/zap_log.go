@@ -89,6 +89,7 @@ func getLogWriter(conf LogConfigs) (zapcore.WriteSyncer, error) {
 		if conf.LogFileName == "" {
 			conf.LogFileName = DefaultLogName
 		}
+		conf.LogPath = fmt.Sprintf("%v/%v", conf.LogPath, time.Now().Format("2006-01-02"))
 		if err := os.MkdirAll(conf.LogPath, os.ModePerm); err != nil {
 			conf.LogPath = DefaultLogPath
 			if err := os.MkdirAll(conf.LogPath, os.ModePerm); err != nil {
