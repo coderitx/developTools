@@ -6,7 +6,7 @@ import (
     "net"
 )
 
-// GetIp 获取ip
+// GetIp 获取ip地址
 func GetIp() (string,error) {
     addrs, err := net.InterfaceAddrs()
     if err != nil {
