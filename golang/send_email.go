@@ -1,7 +1,9 @@
 package tools
 
 var (
+	// 验证码长度
 	CodeSize = 6
+	// 邮箱密钥
 	EmailPassword="xxxxx"
 )
 
