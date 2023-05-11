@@ -1,0 +1,78 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oracle-config
+  namespace: dbs
+data:
+  tnsnames.ora: |
+    ORCLCDB =
+      (DESCRIPTION =
+        (ADDRESS = (PROTOCOL = TCP)(HOST = oracle-service)(PORT = 1521))
+        (CONNECT_DATA =
+          (SERVER = DEDICATED)
+          (SERVICE_NAME = OCRL)
+        )
+      )
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oracle-service
+  namespace: dbs
+  labels:
+    app: oracle-db
+spec:
+  type: NodePort
+  ports:
+  - port: 1521
+    targetPort: 1521
+    nodePort: 31002
+  selector:
+    app: oracle-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oracle-db
+  namespace: dbs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oracle-db
+  template:
+    metadata:
+      labels:
+        app: oracle-db
+    spec:
+      containers:
+        - name: oracle
+          image: registry.cn-hangzhou.aliyuncs.com/helowin/oracle_11g
+          env:
+            - name: ORACLE_ALLOW_REMOTE
+              value: "true"
+            - name: ORACLE_SID
+              value: "ORCLCDB"
+            - name: ORACLE_SERVICE_NAME
+              value: "ORCL"
+            - name: ORACLE_HOME
+              value: "/home/oracle/app/oracle/product/11.2.0/dbhome_2"
+            - name: ORACLE_USER
+              value: "admin"
+            - name: ORACLE_PASSWORD
+              value: "admin"
+          ports:
+            - containerPort: 1521
+          volumeMounts:
+            - name: oracle-pvc
+              mountPath: /home/oracle/app/oracle/oradata
+            - name: tnsnames-ora
+              mountPath: /home/oracle/app/oracle/product/11.2.0/dbhome_2/network/admin/tnsnames.ora
+              subPath: tnsnames.ora
+      volumes:
+        - name: oracle-pvc
+          persistentVolumeClaim:
+            claimName: oracle-pvc
+        - name: tnsnames-ora
+          configMap:
+            name: oracle-config

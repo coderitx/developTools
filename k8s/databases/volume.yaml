@@ -1,0 +1,209 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  namespace: dbs
+  labels:
+    pv: mysql-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /database/mysql
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - master
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: dbs
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
+  selector:
+    matchLabels:
+      pv: mysql-pv
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pgsql-pv
+  namespace: dbs
+  labels:
+    pv: pgsql-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /database/pgsql
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - master
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pgsql-pvc
+  namespace: dbs
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
+  selector:
+    matchLabels:
+      pv: pgsql-pv
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: oracle-pv
+  namespace: dbs
+  labels:
+    pv: oracle-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /database/oracle
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - master
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: oracle-pvc
+  namespace: dbs
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
+  selector:
+    matchLabels:
+      pv: oracle-pv
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sqlserver-pv
+  namespace: dbs
+  labels:
+    pv: sqlserver-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /database/sqlserver
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - master
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sqlserver-pvc
+  namespace: dbs
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
+  selector:
+    matchLabels:
+      pv: sqlserver-pv
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv
+  namespace: dbs
+  labels:
+    pv: mongo-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /database/mongo
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - master
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+  namespace: dbs
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
+  selector:
+    matchLabels:
+      pv: mongo-pv

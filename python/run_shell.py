@@ -4,7 +4,7 @@ from loguru import logger
 
 def run_shell(cmd):
   """
-  run_shell: 运行shell命令并实时输出，返回成功与否
+  :run_shell: 运行shell命令并实时输出，返回成功与否
   :param cmd: 允许的shell命令
   :return: 成功或者失败
   """
