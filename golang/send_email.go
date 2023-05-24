@@ -50,20 +50,18 @@ func NewAlarm() Api {
 		Subject: Alarm,
 	}
 }
-
 // send 邮件发送  发给谁，主题，正文
 func send(name, subject, body string) error {
-	e := NewEmail()
-	password := os.Getenv("EmailPwd")
+	e := global.GlobalC.Email
 	return sendMail(
-		e.User,
-		e.password,
-		e.Host,
-		e.Port,
-		name,
-		e.DefaultFromEmail,
-		subject,
-		body,
+		e.User,             // 发送人
+		e.Password,         // 发送人的认证码
+		e.Host,             // 对应邮箱厂商的host
+		e.Port,             // 对应邮箱厂商的port
+		name,               // 收件人
+		e.DefaultFromEmail, // 默认的发件人名字
+		subject,            // 发送标题
+		body,               // 发送主题
 	)
 }
 
