@@ -31,6 +31,7 @@ type KafkaConfig struct {
 
 	// Producer configuration
 	Acks                             string `kafka:"acks"`
+	SecurityProtocol                 string `kafka:"security.protocol"`
 	EnableIdempotence                bool   `kafka:"enable.idempotence"`
 	MaxInFlightRequestsPerConnection int    `kafka:"max.in.flight.requests.per.connection"`
 	Retries                          int    `kafka:"retries"`
